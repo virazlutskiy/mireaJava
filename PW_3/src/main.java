@@ -20,8 +20,8 @@ class task_2
 	}
 	abstract class Shape
 	{
-		String color;
-		boolean filled;
+		protected String color;
+		protected boolean filled;
 		
 		Shape()
 		{
@@ -44,7 +44,7 @@ class task_2
 	
 	class Circle extends Shape{
 
-		double radius;
+		protected double radius;
 		
 		public Circle() {
 			radius = 0;
@@ -88,8 +88,8 @@ class task_2
 	
 	class Rectangle extends Shape{
 
-		double width;
-		double length;
+		protected double width;
+		protected double length;
 		
 		public Rectangle(){width = 0; length = 0;}
 		public Rectangle(
@@ -139,7 +139,7 @@ class task_2
 	}
 
 	class Square extends Rectangle{
-		double side;
+		protected double side;
 		
 		Square(){side = 0;}
 		Square(double side){setSide(side);}
