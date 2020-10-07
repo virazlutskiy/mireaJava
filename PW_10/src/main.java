@@ -1,20 +1,37 @@
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Scanner;
+
+import javax.swing.*;
+
+
 public class main {
 
 	public static void main(String[] args) {
 		//task1
-		///*
+		/*
 		Complex comp = new ConcreteFactory().createComlex();
 		System.out.println(comp.toString());
 		comp = new ConcreteFactory().createComplex(1,1);
 		System.out.println(comp.toString());
-		//*/
+		//
 		
 		//task2
 		Client cli = new Client();
 		ChairFactory CF = new ChairFactory();
 		cli.setChair(CF.createFunctionalChair());
 		cli.sit();
+		
+		*/
+		//task 3
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Type 1 for TextDocument \nType 2 for ImageDocument \nType 3 for MusicDocument");
+		int type = scanner.nextInt();
+		
+		JFrame.setDefaultLookAndFeelDecorated(true);
+        new JMenuTest(type);
+        
 	}
 }
 //task1
@@ -98,4 +115,163 @@ interface AbstractChairFactory{
 	VictorialChair createVictorialChair();
 	MagicChair createMagicChair();
 	FunctionalChair createFunctionalChair();
+}
+
+//task 3
+interface IDocument{
+	String toString();
+}
+interface ICreateDocument
+{
+	IDocument CreateNew();
+	IDocument CreateOpen();
+}
+class TextDocument implements IDocument{
+	TextDocument(){
+		System.out.println("New TextDocument created!");
+	}
+}
+class ImageDocument implements IDocument{
+	ImageDocument(){
+		System.out.println("New ImageDocument created!");
+	}
+}
+class MusicDocument implements IDocument{
+	MusicDocument(){
+		System.out.println("New MusicDocument created!");
+	}
+}
+
+class CreateTextDocument implements ICreateDocument{
+
+	@Override
+	public IDocument CreateNew() {
+		return new TextDocument();
+	}
+
+	@Override
+	public IDocument CreateOpen() {
+		return new TextDocument();
+	}
+
+}
+class CreateImageDocument implements ICreateDocument{
+
+	@Override
+	public IDocument CreateNew() {
+		return new ImageDocument();
+	}
+
+	@Override
+	public IDocument CreateOpen() {
+		return new ImageDocument();
+	}
+
+}
+class CreateMusicDocument implements ICreateDocument{
+
+	@Override
+	public IDocument CreateNew() {
+		return new MusicDocument();
+	}
+
+	@Override
+	public IDocument CreateOpen() {
+		return new MusicDocument();
+	}
+
+}
+
+class JMenuTest extends JFrame 
+{
+	
+	private static final long serialVersionUID = 1L;
+	ICreateDocument fabric;
+    //--------------------------------------------------------
+    /**
+     * Конструктор класса
+     */
+    public JMenuTest(int type) 
+    {
+        super("Системное меню");
+        setDefaultCloseOperation( EXIT_ON_CLOSE );
+        // Устанавливае фабрику
+        
+    	switch(type)
+    	{
+    	case 1:
+    		fabric = new CreateTextDocument();
+    		break;
+    	case 2:
+    		fabric = new CreateImageDocument();
+    		break;
+    	case 3:
+    		fabric = new CreateMusicDocument();
+    		break;
+    	default:
+    		break;
+    	}
+        // Создание строки главного меню
+        JMenuBar menuBar = new JMenuBar();
+        // Добавление в главное меню выпадающих пунктов меню  
+        menuBar.add(createFileMenu());
+        // Подключаем меню к интерфейсу приложения
+        setJMenuBar(menuBar);
+        // Открытие окна
+        setSize(300, 200);
+        setVisible(true);
+        
+    }
+    //--------------------------------------------------------
+    /**
+     * Функция создания меню "Файл"
+     * @return
+     */
+    private JMenu createFileMenu()
+    {
+        // Создание выпадающего меню
+        JMenu file = new JMenu("Файл");
+        
+        JMenuItem open = new JMenuItem("Открыть", 
+        new ImageIcon("images/open.png"));
+        
+        JMenuItem _new = new JMenuItem("Создать");
+        JMenuItem save = new JMenuItem("Сохранить");
+        
+        JMenuItem exit = new JMenuItem(new ExitAction());
+        exit.setIcon(new ImageIcon("images/exit.png"));
+        file.add(_new);
+        file.addSeparator();
+        file.add(open);
+        file.addSeparator();
+        file.add(save);
+        file.addSeparator();
+        file.add(exit);
+
+        ActionListener NewOpenAction = new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+            	fabric.CreateOpen();
+            }
+        };
+        open.addActionListener(NewOpenAction);
+        _new.addActionListener(NewOpenAction);
+        return file;
+    }
+    
+    //--------------------------------------------------------
+    /**
+     * Вложенный класс завершения работы приложения 
+     */
+    class ExitAction extends AbstractAction
+    {
+        private static final long serialVersionUID = 1L;
+        ExitAction() {
+            putValue(NAME, "Выход");
+        }
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    }
 }
