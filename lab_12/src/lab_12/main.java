@@ -14,13 +14,36 @@ public class main {
 		//new task3();
 		//new task4();
 		//new task5();
-		new task6();
+		//new task6();
+		new task7();
 	}
 
 }
-class task1
-{
+class task1{
 	task1(){
+	String input = "abdcxyz";
+	myMatches("([a-z]*)([a-z]+)", input);
+	myMatches("([a-z]?)([a-z]+)", input);
+	myMatches("([a-z]+)([a-z]*)", input);
+	myMatches("([a-z]?)([a-z]?)", input);
+	}
+	public static void myMatches(String regex,
+		String input) {
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(input);
+		if(matcher.matches()) {
+		System.out.println("First group: "
+		+ matcher.group(1));
+		System.out.println("Second group: "
+		+ matcher.group(2));
+		} else
+		System.out.println("nothing");
+		System.out.println();
+	}
+}
+class task2
+{
+	task2(){
 		Pattern p1 = Pattern.compile("abcdefghijklmnopqrstuv18340");
 		Matcher m1 = p1.matcher( "abcdefghijklmnopqrstuv18340" );
 		boolean b = m1.matches();
@@ -30,8 +53,8 @@ class task1
 		System.out.println(b);
 	}
 }
-class task2{
-	task2(){
+class task3{
+	task3(){
 		String toParse = "100 USD, 100 EUR,99 RUB,100 SUD,25.98 USD,44 ERR, 0.004 EU, asd RUB"; 
 		StringTokenizer st = new StringTokenizer(toParse,","); 
 		
@@ -45,8 +68,8 @@ class task2{
 		}
 	}
 }
-class task3{
-	task3(){
+class task4{
+	task4(){
 		String str1 = "(1 + 8) – 9 / 4";
 		String str2 = "6 / 5 – 2 * 9 ";
 		Pattern p1 = Pattern.compile("\\d+ \\+");
@@ -56,8 +79,8 @@ class task3{
 		System.out.println(m1.find() + ": " + str2);
 	}
 }
-class task4{
-	task4(){
+class task5{
+	task5(){
 		String dates[] = {"29/02/2000", "30/04/2003", "01/01/2003","29/02/2001", "30-04-2003", "1/1/1899"};
 		Pattern p1 = Pattern.compile("\\d\\d/\\d\\d/[1-9][0-9]\\d\\d");
 		Matcher m1;
@@ -83,8 +106,8 @@ class task4{
     }
 }
 
-class task5{
-	task5(){
+class task6{
+	task6(){
 		String emails[] = {"user@example.com", "root@localhost", "myhost@@@com.ru", "@my.ru", "Julia String","my@exemple.ru.com","my@ex..mple"};
 		Pattern p1 = Pattern.compile("\\w+@\\w+((\\.)??\\w+)+");
 		Matcher m1;
@@ -96,8 +119,8 @@ class task5{
 	}
 }
 class
-task6{
-	task6(){
+task7{
+	task7(){
 		String passwords[] = {"F032_Password", "TrySpy11","TrySpy1", "smart_pass", "A007","Not@Good 123"};
 		Pattern p1 = Pattern.compile("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}");
 		p1 = Pattern.compile("(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])[_\\w]{8,}+");

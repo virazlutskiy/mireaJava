@@ -1,4 +1,13 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 public class main {
 
@@ -6,7 +15,8 @@ public class main {
 		//new TestPerson();
 		//new TestAdress();
 		//new TestShirt();
-		new TestphoneNumber();
+		//new TestphoneNumber();
+		new task5();
 	}
 
 }
@@ -50,7 +60,7 @@ class TestAdress
 	TestAdress()
 	{
 		try {
-			Adress ad1 = new Adress("Россия, Москва, Москва, Уличная, 2, 8, 256");
+			Adress ad1 = new Adress("ГђГ®Г±Г±ГЁГї, ГЊГ®Г±ГЄГўГ , ГЊГ®Г±ГЄГўГ , Г“Г«ГЁГ·Г­Г Гї, 2, 8, 256");
 			System.out.println(ad1.toString());	
 		}catch(Exception e)
 		{
@@ -58,21 +68,21 @@ class TestAdress
 		}
 		
 		try {
-			Adress ad1 = new Adress("Россия. Москва, Москва, Уличная, 2, 8, 256");
+			Adress ad1 = new Adress("ГђГ®Г±Г±ГЁГї. ГЊГ®Г±ГЄГўГ , ГЊГ®Г±ГЄГўГ , Г“Г«ГЁГ·Г­Г Гї, 2, 8, 256");
 			System.out.println(ad1.toString());	
 		}catch(Exception e)
 		{
 			System.out.println(e);
 		}
 		try {
-			Adress ad1 = new Adress("Россия, Москва, Москва, Уличная, 2, 8");
+			Adress ad1 = new Adress("ГђГ®Г±Г±ГЁГї, ГЊГ®Г±ГЄГўГ , ГЊГ®Г±ГЄГўГ , Г“Г«ГЁГ·Г­Г Гї, 2, 8");
 			System.out.println(ad1.toString());	
 		}catch(Exception e)
 		{
 			System.out.println(e);
 		}
 		try {
-			Adress ad1 = new Adress("Россия, Москва. Москва; Уличная, 2, 8; 256");
+			Adress ad1 = new Adress("ГђГ®Г±Г±ГЁГї, ГЊГ®Г±ГЄГўГ . ГЊГ®Г±ГЄГўГ ; Г“Г«ГЁГ·Г­Г Гї, 2, 8; 256");
 			System.out.println(ad1.toString());	
 		}catch(Exception e)
 		{
@@ -218,5 +228,77 @@ class phoneNumber{
 
 //task5
 /*
- * В методе main считай с консоли имя файла, который содержит слова, разделенные пробелом. В методе getLine() используя StringBuilder расставьте все слова в таком порядке, чтобы последняя буква данного слова совпадала с первой буквой следующего не учитывая регистр. Каждое слово должно участвовать 1 раз.
- */
+ * Р’ РјРµС‚РѕРґРµ main СЃС‡РёС‚Р°Р№ СЃ РєРѕРЅСЃРѕР»Рё РёРјСЏ С„Р°Р№Р»Р°, РєРѕС‚РѕСЂС‹Р№ СЃРѕРґРµСЂР¶РёС‚ СЃР»РѕРІР°, СЂР°Р·РґРµР»РµРЅРЅС‹Рµ РїСЂРѕР±РµР»РѕРј. 
+ * Р’ РјРµС‚РѕРґРµ getLine() РёСЃРїРѕР»СЊР·СѓСЏ StringBuilder СЂР°СЃСЃС‚Р°РІСЊС‚Рµ РІСЃРµ СЃР»РѕРІР° РІ С‚Р°РєРѕРј РїРѕСЂСЏРґРєРµ,
+ *  С‡С‚РѕР±С‹ РїРѕСЃР»РµРґРЅСЏСЏ Р±СѓРєРІР° РґР°РЅРЅРѕРіРѕ СЃР»РѕРІР° СЃРѕРІРїР°РґР°Р»Р° СЃ РїРµСЂРІРѕР№ Р±СѓРєРІРѕР№ СЃР»РµРґСѓСЋС‰РµРіРѕ РЅРµ СѓС‡РёС‚С‹РІР°СЏ СЂРµРіРёСЃС‚СЂ.
+ *   РљР°Р¶РґРѕРµ СЃР»РѕРІРѕ РґРѕР»Р¶РЅРѕ СѓС‡Р°СЃС‚РІРѕРІР°С‚СЊ 1 СЂР°Р·.
+*/
+class task5{
+	private String arr[];
+	task5()
+	{
+		try {
+			Scanner in = new Scanner(System.in);
+			System.out.println("РџРѕРґСЃРєР°Р·РєР°: РІРІРµРґРёС‚Рµ input.txt");
+			String filename = in.nextLine();
+			
+			File file = new File(filename);
+		    in = new Scanner(file);
+		    while (in.hasNextLine()) {
+		    	arr = in.nextLine().split(" ");
+		    }
+		    in.close();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		getLine();
+	}
+	void getLine() {
+		System.out.println("РСЃС…РѕРґРЅР°СЏ СЃС‚СЂРѕРєР°:");
+		for(int i = 0;i<arr.length;i++)
+		{
+			System.out.print(arr[i]+' ');
+		}
+		System.out.println("\nРќР°Р№РґС‘РЅРЅС‹Рµ РєРѕРјР±РёРЅР°С†РёРё:");
+		StringBuilder result = new StringBuilder();
+		generateCombination(new ArrayList<String>());
+	}
+	boolean isArrayGoodEnought(ArrayList<String> arr)
+	{
+		for(int i = 0;i<arr.size()-1;i++)
+		{
+			String FirstWord = arr.get(i);
+			String SecondWord = arr.get(i+1);
+			if(Character.toLowerCase(FirstWord.charAt(FirstWord.length()-1)) != Character.toLowerCase(SecondWord.charAt(0)))
+				return false;
+		}
+		return true;
+	}
+	
+	void generateCombination(ArrayList<String> combination)
+	{
+		//arr - СЃР»РѕРІР°СЂСЊ
+		//combination - С‚РµРєСѓС‰Р°СЏ РєРѕРјР±РёРЅР°С†РёСЏ
+		for(int i = 0; i < arr.length;i++)
+		{
+			if(!combination.contains(arr[i]))
+			{
+				combination.add(arr[i]);
+				generateCombination(combination);
+				combination.remove(arr[i]);
+			}
+		}
+		if(combination.size()==arr.length)
+		{
+			if(isArrayGoodEnought(combination))
+			{
+				for(String a:combination)
+				{
+					System.out.print(a+" ");
+				}
+				System.out.println();
+			}
+		}
+	}
+}
+
